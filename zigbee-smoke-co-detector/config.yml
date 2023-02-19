@@ -1,5 +1,5 @@
-name: 'Zigbee Smoke/CO Detector Mc'
-packageKey: 'zigbee-smoke-detector-heiman'
-description: 'Devices Supported: https://github.com/Mariano-Github/Edge-Drivers-Beta/blob/main/zigbee-smoke-co-detector/fingerprints.yml'
+name: 'Zigbee Smoke/CO Detector AllStoNe'
+packageKey: 'zigbee-smoke-detector-heiman-allstone'
+description: 'Devices Supported: https://github.com/allstone/Edge-Drivers-Beta/blob/main/zigbee-smoke-co-detector/fingerprints.yml'
 permissions:
   zigbee: {}
