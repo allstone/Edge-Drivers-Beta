@@ -24,6 +24,11 @@ zigbeeManufacturer:
     manufacturer: HEIMAN
     model: SmokeSensor-N-3.0
     deviceProfileName: smoke-battery
+  - id: "HEIMAN/SmokeSensor-N"
+    deviceLabel: HEIMAN Smoke Sensor
+    manufacturer: HEIMAN
+    model: SmokeSensor-N
+    deviceProfileName: smoke-battery
   - id: "frient/SMSZB-120" # this device is not supported by SmartThings
     deviceLabel: frient Smoke Detector
     manufacturer: frient A/S
