@@ -1,0 +1,39 @@
+{
+    "id": "numberreason51831.sirenChangeMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Siren Change Mode",
+    "ephemeral": false,
+    "attributes": {
+        "sirenChangeMode": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setSirenChangeMode",
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "setSirenChangeMode": {
+            "name": "setSirenChangeMode",
+            "arguments": [
+                {
+                    "name": "value",
+                    "optional": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
+    }
+}

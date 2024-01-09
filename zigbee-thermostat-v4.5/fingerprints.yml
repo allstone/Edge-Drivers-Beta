@@ -234,3 +234,8 @@ zigbeeManufacturer:
     manufacturer: CentraLite
     model: 3325-S
     deviceProfileName: motion-temp-therm-battery-05
+  - id: "_TZE200_a8sdabtg/TS0601"
+    deviceLabel: Tuya TS0601
+    manufacturer: _TZE200_a8sdabtg
+    model: TS0601
+    deviceProfileName: temp-humid-therm-battery-05

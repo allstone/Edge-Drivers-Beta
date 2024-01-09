@@ -1,0 +1,158 @@
+{
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{sirenChangeMode.value}}"
+            }
+        ],
+        "actions": []
+    },
+    "detailView": [
+        {
+            "label": "Siren Change Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSirenChangeMode",
+                    "alternatives": [
+                        {
+                            "key": "Continuousallcolors",
+                            "value": "Continuous All Colors",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Continuousredorange",
+                            "value": "Continuous red orange",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Random",
+                            "value": "Random",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AllModes",
+                            "value": "AllModes",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Flashing",
+                            "value": "Flashing",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "sirenChangeMode.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "Continuousallcolors",
+                            "value": "Continuous All Colors",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Continuousredorange",
+                            "value": "Continuous red orange",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Random",
+                            "value": "Random",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AllModes",
+                            "value": "AllModes",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Flashing",
+                            "value": "Flashing",
+                            "type": "active"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Siren Change Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "Continuousallcolors",
+                            "value": "Continuous All Colors",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Continuousredorange",
+                            "value": "Continuous red orange",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Random",
+                            "value": "Random",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AllModes",
+                            "value": "AllModes",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Flashing",
+                            "value": "Flashing",
+                            "type": "active"
+                        }
+                    ],
+                    "value": "sirenChangeMode.value",
+                    "valueType": "string"
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Siren Change Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "Continuousallcolors",
+                            "value": "Continuous All Colors",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Continuousredorange",
+                            "value": "Continuous red orange",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Random",
+                            "value": "Random",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AllModes",
+                            "value": "AllModes",
+                            "type": "active"
+                        },
+                        {
+                            "key": "Flashing",
+                            "value": "Flashing",
+                            "type": "active"
+                        }
+                    ],
+                    "command": "setSirenChangeMode",
+                    "argumentType": "string"
+                }
+            }
+        ]
+    },
+    "id": "numberreason51831.sirenChangeMode",
+    "version": 1
+}
