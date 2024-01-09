@@ -464,3 +464,109 @@ zigbeeManufacturer:
     manufacturer: _TZ3000_ynmowqk2
     model: TS011F
     deviceProfileName: single-switch-plug
+  - id: "SONOFF/ZBMINIL2"
+    deviceLabel: SONOFF Switch
+    manufacturer: SONOFF
+    model: ZBMINIL2
+    deviceProfileName: single-switch
+  - id: "_TZ3000_jcqs2mrv/Switch"
+    deviceLabel: Smart Switch
+    manufacturer: _TZ3000_jcqs2mrv
+    model: SM0001
+    deviceProfileName: single-switch
+  - id: "Lumi Vietnam/LM-SZ1"
+    deviceLabel: LM-SZ1 Switch
+    manufacturer: Lumi Vietnam
+    model: LM-SZ1
+    deviceProfileName: single-switch
+  - id: "sengled/E1C-NB6"
+    deviceLabel: sengled Plug
+    manufacturer: sengled
+    model: E1C-NB6
+    deviceProfileName: single-switch-plug
+  - id: "CentraLite/4256050-ZHAC"
+    deviceLabel: CentraLite Plug
+    manufacturer: CentraLite Systems
+    model: 4256050-ZHAC
+    deviceProfileName: single-switch-plug
+  - id: "TS011F/_TZ3000_2xlvlnez"
+    deviceLabel: TS011F Plug
+    manufacturer: _TZ3000_2xlvlnez
+    model: TS011F
+    deviceProfileName: single-switch-plug
+  - id: "_TZ3000_gjrubzje/TS0001"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_gjrubzje
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "TS0011/_TZ3000_hufg57fw"
+    deviceLabel: TS0011 Switch
+    manufacturer: _TZ3000_hufg57fw
+    model: TS0011
+    deviceProfileName: single-switch
+  - id: "TS0001/_TZ3000_ckorfokt"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_ckorfokt
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3000_bmzfjnbp/Switch"
+    deviceLabel: TS0011 Switch
+    manufacturer: _TZ3000_bmzfjnbp
+    model: TS0011
+    deviceProfileName: single-switch
+  - id: "_TZ3000_46t1rvdu/Switch"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_46t1rvdu
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3210_dse8ogfy/Fingerboot"
+    deviceLabel: Fingerbot Plus
+    manufacturer: _TZ3210_dse8ogfy
+    model: TS0001
+    deviceProfileName: switch-battery
+  # Agosto 2023
+  - id: "_TZ3000_jy3whlzd/Switch"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_jy3whlzd
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3000_en6s3mku/TS0012"
+    deviceLabel: TS0012 Switch
+    manufacturer: _TZ3000_en6s3mku
+    model: TS0012
+    deviceProfileName: single-switch
+  - id: "TS0001/_TZ3000_majwnphg"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_majwnphg
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3210_j4pdtz9v/Fingerboot"
+    deviceLabel: Fingerbot Plus
+    manufacturer: _TZ3210_j4pdtz9v
+    model: TS0001
+    deviceProfileName: switch-battery
+  - id: "TS0001/_TZ3000_mantufyr"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_mantufyr
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "TS0001/_TZ3000_agpdnnyd"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_agpdnnyd
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "innr/Plug OSP 210"
+    deviceLabel: innr Plug
+    manufacturer: innr
+    model: OSP 210
+    deviceProfileName: single-switch-plug
+  - id: "innr/Plug SP 220"
+    deviceLabel: innr Plug
+    manufacturer: innr
+    model: SP 220
+    deviceProfileName: single-switch-plug
+  - id: "_TZ3000_hafsqare/Switch"
+    deviceLabel: BSEED Switch
+    manufacturer: _TZ3000_hafsqare
+    model: TS0011
+    deviceProfileName: single-switch

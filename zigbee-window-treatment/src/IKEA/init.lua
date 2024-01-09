@@ -15,12 +15,14 @@
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local window_shade_defaults = require "st.zigbee.defaults.windowShade_defaults"
+local PowerConfiguration = zcl_clusters.PowerConfiguration
 
 local WindowCovering = zcl_clusters.WindowCovering
 
 local SHADE_SET_STATUS = "shade_set_status"
 
 local function current_position_attr_handler(driver, device, value, zb_rx)
+  print("<<<< Subdriver IKEA: current_position_attr_handler")
   local level = 100 - value.value
   local current_level = device:get_latest_state("main", capabilities.windowShadeLevel.ID, capabilities.windowShadeLevel.shadeLevel.NAME)
   local windowShade = capabilities.windowShade.windowShade
@@ -57,7 +59,7 @@ local function current_position_attr_handler(driver, device, value, zb_rx)
         device:emit_event(windowShade.partially_open())
       end
     end
-    set_status_timer = device.thread:call_with_delay(1, set_window_shade_status)
+    set_status_timer = device.thread:call_with_delay(2, set_window_shade_status)
     device:set_field(SHADE_SET_STATUS, set_status_timer)
   end
 end
@@ -77,12 +79,22 @@ local function window_shade_preset_cmd(driver, device, command)
   end
 end
 
+local function battery_perc_attr_handler(driver, device, value, zb_rx)
+  if device:get_manufacturer() ~= "IKEA of Sweden" then
+    value.value = math.floor(value.value / 2.0 + 0.5)
+  end
+  device:emit_event_for_endpoint(zb_rx.address_header.src_endpoint.value, capabilities.battery.battery(value.value))
+end
+
 local ikea_window_treatment = {
   NAME = "ikea window treatment",
   zigbee_handlers = {
     attr = {
       [WindowCovering.ID] = {
         [WindowCovering.attributes.CurrentPositionLiftPercentage.ID] = current_position_attr_handler
+      },
+      [PowerConfiguration.ID] = {
+        [PowerConfiguration.attributes.BatteryPercentageRemaining.ID] = battery_perc_attr_handler,
       }
     }
   },
@@ -98,9 +110,7 @@ local ikea_window_treatment = {
     if device:get_manufacturer() == "IKEA of Sweden" then
       return device:get_manufacturer() == "IKEA of Sweden"
     elseif device:get_manufacturer() == "Third Reality, Inc" then
-      return device:get_manufacturer() == "Third Reality, Inc"
-    elseif device:get_manufacturer() == "SmartWings" then
-      return device:get_manufacturer() == "SmartWings"
+      return device:get_manufacturer() == "Third Reality, Inc"    
     end
   end
 }

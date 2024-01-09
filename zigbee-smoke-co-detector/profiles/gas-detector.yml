@@ -1,0 +1,20 @@
+name: gas-detector
+components:
+- id: main
+  capabilities:
+  - id: gasDetector
+    version: 1
+  #- id: battery
+  #  version: 1
+  - id: legendabsolute60149.signalMetrics
+    version: 1
+  - id: refresh
+    version: 1
+  - id: firmwareUpdate
+    version: 1
+  categories:
+  - name: SmokeDetector
+metadata:
+  deviceType: SmokeDetector
+  ocfDeviceType: x.com.st.d.sensor.smoke
+  deviceTypeId: SmokeDetector

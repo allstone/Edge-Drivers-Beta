@@ -13,7 +13,7 @@
             "label": "Atmospheric Pressure in mBar",
             "displayType": "state",
             "state": {
-                "label": "{{atmosPressure.value}}",
+                "label": "{{atmosPressure.value}} {{atmosPressure.unit}}",
                 "unit": "atmosPressure.unit"
             }
         }

@@ -68,7 +68,7 @@ zigbeeManufacturer:
     deviceLabel: LUMI Natgas Sensor
     manufacturer: LUMI
     model: lumi.sensor_natgas
-    deviceProfileName: smoke-battery
+    deviceProfileName: smoke
   # added after 15 oct
   - id: "LUMI/smoke.acn03"
     deviceLabel: LUMI Smoke.acn03
@@ -95,9 +95,50 @@ zigbeeManufacturer:
     manufacturer: SMC Networks
     model: SMCCO02-Z CA
     deviceProfileName: smoke-battery
+  - id: "Heimgard/HT-SMO-2"
+    deviceLabel: Heimgard Smoke Detector
+    manufacturer: Heimgard
+    model: HT-SMO-2
+    deviceProfileName: smoke-battery
+  - id: "Heiman/GAS_V15"
+    deviceLabel: HEIMAN Gas Detector
+    manufacturer: Heiman
+    model: GAS_V15
+    deviceProfileName: smoke-battery
+  - id: "Develco/SMSZB-120"
+    deviceLabel: Develco Smoke Detector
+    manufacturer: Develco Products A/S
+    model: SMSZB-120
+    deviceProfileName: smoke-battery-temp
+  - id: "Heiman/SMOK_V16"
+    deviceLabel: HEIMAN Smoke Detector
+    manufacturer: Heiman
+    model: SMOK_V16
+    deviceProfileName: smoke-battery
+  # agosto 2023
+  - id: "Heiman/SmokeSensor-N"
+    deviceLabel: HEIMAN Smoke Detector
+    manufacturer: HEIMAN
+    model: SmokeSensor-N
+    deviceProfileName: smoke-battery
+  - id: "Heiman/SMOK_YDLV10"
+    deviceLabel: HEIMAN Smoke Detector
+    manufacturer: Heiman
+    model: SMOK_YDLV10
+    deviceProfileName: smoke-battery
+  - id: "_TYZB01_wqcac7lo/TS0205"
+    deviceLabel: Nedis Smoke Detector
+    manufacturer: _TYZB01_wqcac7lo
+    model: TS0205
+    deviceProfileName: smoke-battery
+  - id: "_TZ3210_up3pngle/TS0205"
+    deviceLabel: Smoke Detector
+    manufacturer: _TZ3210_up3pngle
+    model: TS0205
+    deviceProfileName: smoke-battery
   # CO Sensors
   - id: "feibit/FNB56-COS06FB1.7"
-    deviceLabel: SCA01ZB CO Sensor
+    deviceLabel: feibit CO Sensor
     manufacturer: feibit
     model: FNB56-COS06FB1.7
     deviceProfileName: co-battery
@@ -111,3 +152,29 @@ zigbeeManufacturer:
     manufacturer: HEIMAN
     model: COSensor-EF-3.0
     deviceProfileName: co-battery
+  - id: "Heiman/CO_V16"
+    deviceLabel: HEIMAN CO Detector
+    manufacturer: Heiman
+    model: CO_V16
+    deviceProfileName: co-battery
+  - id: "Trust/COSensor-EM"
+    deviceLabel: Trust CO Detector
+    manufacturer: Trust
+    model: COSensor-EM
+    deviceProfileName: co-battery
+  - id: "TS0212/_TYZB01_o7m83470"
+    deviceLabel: Nedis CO Sensor
+    manufacturer: _TYZB01_o7m83470
+    model: TS0212
+    deviceProfileName: co-battery
+  # Gas Sensors
+  - id: "TS0204/_TYZB01_mfccmeio"
+    deviceLabel: TS0204 Gas Sensor
+    manufacturer: _TYZB01_mfccmeio
+    model: TS0204
+    deviceProfileName: gas-detector
+  - id: "LUMI/sensor_gas.acn02"
+    deviceLabel: LUMI Methane Sensor
+    manufacturer: LUMI
+    model: lumi.sensor_gas.acn02
+    deviceProfileName: gas-detector

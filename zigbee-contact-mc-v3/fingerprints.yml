@@ -225,11 +225,6 @@ zigbeeManufacturer:
     manufacturer: _TZ3000_n2egfsli
     model: TS0203
     deviceProfileName: contact-battery-profile
-  - id: "_TZ3000_n2egfsli/Close Sensor"
-    deviceLabel: TS0203 Close Sensor
-    manufacturer: _TZ3000_n2egfsli
-    model: TS0203
-    deviceProfileName: contact-battery-profile
   - id: "Sercomm Corp./Tripper"
     deviceLabel: Sercomm Open/Closed Sensor
     manufacturer: Sercomm Corp.
@@ -250,6 +245,207 @@ zigbeeManufacturer:
     manufacturer: CentraLite
     model: 3323-G
     deviceProfileName: contact-profile
+  - id: "_TZ3000_au1rjicn/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_au1rjicn
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_suiggvyhClose Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_suiggvyh
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_0gkrb5py/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_0gkrb5py
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_decxrtwa/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_decxrtwa
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "EZVIZ/CS-T2C-A0-BG"
+    deviceLabel: EZVIZ Contact Sensor
+    manufacturer: EZVIZ
+    model: CS-T2C-A0-BG
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_ebar6ljy/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_ebar6ljy
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_hdtmulpn/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_hdtmulpn
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_a33rw7ou/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_a33rw7ou
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_7d8vme6f/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_7d8vme6f
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "TUYATEC-ktge2vqt/RH3001"
+    deviceLabel: RH3001 Open/Close Sensor
+    manufacturer: TUYATEC-ktge2vqt
+    model: RH3001
+    deviceProfileName: contact-battery-profile
+  - id: "LUMI/magnet.agl02"
+    deviceLabel: Aqara Door and Window Sensor T1
+    manufacturer: LUMI
+    model: lumi.magnet.agl02
+    deviceProfileName: contact-battery-profile-lumi
+  - id: "LUMI/magnet.ac01"
+    deviceLabel: Aqara Door and Window Sensor P1
+    manufacturer: LUMI
+    model: lumi.magnet.ac01
+    deviceProfileName: contact-battery-profile-lumi
+  - id: "_TZ3000_7d8yme6f/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_7d8yme6f
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  #agosto 2023
+  - id: "TUYATEC-ydcwf5m2/RH3001"
+    deviceLabel: RH3001 Open/Close Sensor
+    manufacturer: TUYATEC-ydcwf5m2
+    model: RH3001
+    deviceProfileName: contact-battery-profile
+  - id: "Orvibo/Contact Sensor"
+    deviceLabel: Orvibo Open/Close Sensor
+    manufacturer: 欧瑞
+    model: 75a4bfe8ef9c4350830a25d13e3ab068
+    deviceProfileName: contact-battery-profile
+  - id: "feibit/FNB56-DOS07FB3.0"
+    deviceLabel: feibit Open/Close Sensor
+    manufacturer: feibit
+    model: FNB56-DOS07FB3.0
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_yfekcy3n/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_yfekcy3n
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_6zvw8ham/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_6zvw8ham
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "TUYATEC-zfunf8j9/RH3001"
+    deviceLabel: RH3001 Open/Close Sensor
+    manufacturer: TUYATEC-zfunf8j9
+    model: RH3001
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_mq9f17dw/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_mq9f17dw
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "Sercomm Corp./SZ-DWS08N-CZ3"
+    deviceLabel: Sercomm Open/Closed Sensor
+    manufacturer: Sercomm Corp.
+    model: SZ-DWS08N-CZ3
+    deviceProfileName: contact-profile
+  - id: "_TZ3000_yxqnffam/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_yxqnffam
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "Namron/Contact Sensor"
+    deviceLabel: Namron Contact Sensor
+    manufacturer: Namron AS
+    model: 4512762
+    deviceProfileName: contact-battery-profile
+  - id: "TUYATEC-xrvzm3yI/RH3001"
+    deviceLabel: RH3001 Open/Close Sensor
+    manufacturer: TUYATEC-xrvzm3yI
+    model: RH3001
+    deviceProfileName: contact-battery-profile
+  - id: "LUMI/sensor_magnet.aq2"
+    deviceLabel: Aqara Door and Window Sensor E1
+    manufacturer: LUMI
+    model: lumi.sensor_magnet.aq2
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_cea5xugq/Woox"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_cea5xugq
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_2jxwezhd/TS0203"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_2jxwezhd
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_zgrffiwg/TS0203"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_zgrffiwg
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_bpkijo14/TS0203"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_bpkijo14
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "Third Reality/3RDS17BZ"
+    deviceLabel: Third Reality Contact Sensor
+    manufacturer: Third Reality, Inc
+    model: 3RDS17BZ
+    deviceProfileName: contact-battery-profile
+  - id: "eWeLink/SNZB-04"
+    deviceLabel: eWeLink Open/Closed Sensor
+    manufacturer: eWeLink
+    model: SNZB-04
+    deviceProfileName: contact-battery-profile
+  - id: "sengled/E2D-G73"
+    deviceLabel: sengled Open/Closed Sensor
+    manufacturer: sengled
+    model: E2D-G73
+    deviceProfileName: contact-battery-profile
+  - id: "TUYATEC-ycbe5fbx/RH3001"
+    deviceLabel: Open/Close Sensor
+    manufacturer: TUYATEC-ycbe5fbx
+    model: RH3001
+    deviceProfileName: contact-battery-profile
+  - id: "zbeacon/DS01"
+    deviceLabel: Open/Closed Sensor
+    manufacturer: zbeacon
+    model: DS01
+    deviceProfileName: contact-battery-profile
+  - id: "Feibit/FB56-DOS06HM1.3"
+    deviceLabel: Open/Closed Sensor
+    manufacturer: Feibit,co.ltd
+    model: FB56-DOS06HM1.3
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_bnai1qnw/TS0203"
+    deviceLabel: Samotech SM300Z Contact Sensor
+    manufacturer: _TZ3000_bnai1qnw
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "LUMI/sensor_magnet"
+    deviceLabel: Xiaomi Door Sensor MCCGQ01LM
+    manufacturer: LUMI
+    model: lumi.sensor_magnet
+    deviceProfileName: contact-battery-profile
+  - id: "Ikea/PARASOLL"
+    deviceLabel: Ikea Door Sensor
+    manufacturer: IKEA of Sweden
+    model: PARASOLL Door/Window Sensor
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_hufxidjp/TS0203"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_hufxidjp
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_8yhypbo7/TS0203"
+    deviceLabel: MOES Contact Sensor
+    manufacturer: _TZ3000_8yhypbo7
+    model: TS0203
+    deviceProfileName: contact-battery-profile
 
   # ST multipurpose sensors
   - id: "Samjin/multi"
@@ -266,7 +462,17 @@ zigbeeManufacturer:
     deviceLabel: Multipurpose Sensor
     manufacturer: CentraLite
     model: 3321-S
-    deviceProfileName: st-multipurpose  
+    deviceProfileName: st-multipurpose
+  - id: Smartsense/multi/1
+    deviceLabel: Multipurpose Sensor
+    manufacturer: SmartThings
+    model: PGC313
+    deviceProfileName: smartsense-multi
+  - id: Smartsense/multi/2
+    deviceLabel: Multipurpose Sensor
+    manufacturer: SmartThings
+    model: PGC313EU
+    deviceProfileName: smartsense-multi
 zigbeeGeneric:
   - id: "contact-generic"
     deviceLabel: "Zigbee Contact Sensor"

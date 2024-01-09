@@ -18,6 +18,10 @@ components:
     version: 1
   - id: legendabsolute60149.forcedOnLevel
     version: 1
+  - id: legendabsolute60149.effectsSetCommand
+    version: 1
+  - id: legendabsolute60149.mirrorGroupFunction
+    version: 1
   - id: legendabsolute60149.getGroups
     version: 1
   - id: legendabsolute60149.signalMetrics
@@ -29,11 +33,11 @@ components:
   - id: firmwareUpdate
     version: 1
   categories:
-  - name: Switch
+  - name: SmartPlug
 preferences:
   - name: "version"
-    title: "Version 6.2 (Nov 2022)"
-    description: "Add: new RGBW profile and Color temperature limits"
+    title: "Version 6.3 (Sep 2023)"
+    description: "Added: Device custom interval reports"
     required: false
     preferenceType: string
     definition:
@@ -41,6 +45,15 @@ preferences:
       minLength: 0
       maxLength: 0
       default: "" 
+  - name: "onOffReports"
+    title: "Device On-Off Interval Report"
+    description: "IF YOUR DEVICE & NETWORK WORK FINE THEN DON'T TOUCH. Set Device Interval Report (300 to 1200 sec). Smartthings Default = 300. Longer intervals reduce zigbee network traffic and Hub work. If Offline states occur with high values, then reduce the interval. Restore default Value before Driver Change."
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 300
+      maximum: 1200
+      default:  300
   - name: "localTimeOffset"
     title: "Local Time Offset to UTC (-12 to 12)"
     description: "Select Your Local Time Offset to UTC Time Hours (-12 to 12, Default:0)"
@@ -49,6 +62,22 @@ preferences:
     definition:
       minimum: -12
       maximum: 12
+      default: 0
+  - name: "groupChild"
+    title: "Create Device Mirror Group Control"
+    description: "Create Virtual Device for Mirror Group Control:"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "onOffGroup"
+    title: "Assign to one Mirror Group"
+    description: "Assign Device to one Mirror Group. 0 = Not Group Assigned (defualt: 0)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 10
       default: 0
   - name: "restoreState"
     title: "ATTEMPT Restore State if Power Lost"
@@ -63,21 +92,21 @@ preferences:
       default: "255"
   - name: "onTransTime"
     title: "Turn ON and OFF Transition Time(sec)"
-    description: "Select Transition Time to Turn ON to last Level or OFF (0 to 10 sec, Default: 0)"
+    description: "Select Transition Time to Turn ON to last Level or OFF (0 to 3600 sec, Default: 0). WARNING: If the device is not able to move at a variable rate, the Transition time field MAY be disregarded and not will work"
     required: false
     preferenceType: number
     definition:
       minimum: 0
-      maximum: 10
+      maximum: 3600
       default: 0
   - name: "levelTransTime"
     title: "Transition Time to New Level(sec)"
-    description: "Select Transition Time to Move New Level (0 to 10 sec, Default: 0)"
+    description: "Select Transition Time to Move New Level (0 to 3600 sec, Default: 0). WARNING: If the device is not able to move at a variable rate, the Transition time field MAY be disregarded and not will work"
     required: false
     preferenceType: number
     definition:
       minimum: 0
-      maximum: 10
+      maximum: 3600
       default: 0
   - name: "onTimeMax"
     title: "Turn (ON) Time to End Level(min)"
@@ -181,6 +210,15 @@ preferences:
       minimum: 0
       maximum: 65535
       default: 1
+  - name: "blinkTimer"
+    title: "Set Blink Time interval (sec)"
+    description: "Set Blink Time interval in sec (1 sec to 30 sec, Default: 3)"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 1
+      maximum: 30
+      default: 3 
   - name: "signalMetricsVisibles"
     title: "Signal Metrics Visible in History"
     description: "Signal Metrics Visible in App History, Default, (Signal Metrics No Visible)"

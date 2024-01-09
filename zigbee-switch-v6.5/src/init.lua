@@ -86,6 +86,18 @@ end
 --do_configure
 local function do_configure(self, device)
   if device:get_manufacturer() ~= "_TZ3000_9hpxg80k" then
+    --device:configure()
+    -- Configure OnOff interval report
+    local config ={
+      cluster = zcl_clusters.OnOff.ID,
+      attribute = zcl_clusters.OnOff.attributes.OnOff.ID,
+      minimum_interval = 0,
+      maximum_interval = device.preferences.onOffReports,
+      data_type = zcl_clusters.OnOff.attributes.OnOff.base_type
+    }
+    --device:send(zcl_clusters.OnOff.attributes.OnOff:configure_reporting(device, 0, device.preferences.onOffReports))
+    device:add_configured_attribute(config)
+    device:add_monitored_attribute(config)
     device:configure()
   end
 end
@@ -120,6 +132,18 @@ local function driver_Switched(self,device)
    end 
   device:refresh()
   if device:get_manufacturer() ~= "_TZ3000_9hpxg80k" then
+    --device:configure()
+    -- Configure OnOff interval report
+    local config ={
+      cluster = zcl_clusters.OnOff.ID,
+      attribute = zcl_clusters.OnOff.attributes.OnOff.ID,
+      minimum_interval = 0,
+      maximum_interval = device.preferences.onOffReports,
+      data_type = zcl_clusters.OnOff.attributes.OnOff.base_type
+    }
+    --device:send(zcl_clusters.OnOff.attributes.OnOff:configure_reporting(device, 0, device.preferences.onOffReports))
+    device:add_configured_attribute(config)
+    device:add_monitored_attribute(config)
     device:configure()
   end
 end
@@ -165,9 +189,10 @@ local zigbee_switch_driver_template = {
       [zcl_clusters.OnOff.attributes.OnOff.ID] = random.on_off_attr_handler
     }
   },
- }
+ },
+ sub_drivers = { require("tuya-fingerbot") }
 }
 -- run driver
 defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities)
-local zigbee_switch = ZigbeeDriver("Zigbee_Switch", zigbee_switch_driver_template)
+local zigbee_switch = ZigbeeDriver("Zigbee_Switch_Mc", zigbee_switch_driver_template)
 zigbee_switch:run()
