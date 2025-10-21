@@ -1,0 +1,39 @@
+name: smoke-detector
+components:
+- id: main
+  capabilities:
+  - id: smokeDetector
+    version: 1
+  - id: legendabsolute60149.signalMetrics
+    version: 1
+  - id: refresh
+    version: 1
+  - id: firmwareUpdate
+    version: 1
+  categories:
+  - name: SmokeDetector
+preferences:
+  - name: "changeProfile"
+    title: "Set Profile Type"
+    description: "Select Profile for Gas Detector or Smoke Detector. (Default = Gas Detector)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "Gas" : "Gas Detector"
+        "Smoke": "Smoke Detector"
+      default: "Gas"
+  - name: "signalMetricsVisibles"
+    title: "Signal Metrics Visible in History"
+    description: "Signal Metrics Visible in App History: (default: No Visible)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "Yes" : "Signal Metrics Visible"
+        "No": "Signal Metrics No Visible"
+      default: "No"
+metadata:
+  deviceType: SmokeDetector
+  ocfDeviceType: x.com.st.d.sensor.smoke
+  deviceTypeId: SmokeDetector

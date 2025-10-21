@@ -6,15 +6,22 @@ local tempMeasurement_defaults = require "st.zigbee.defaults.temperatureMeasurem
 local signal = require "signal-metrics"
 
 local can_handle = function(opts, driver, device)
-  if device:get_manufacturer() == "Samjin" then
-    return device:get_manufacturer() == "Samjin"
-  elseif device:get_manufacturer() == "Nortek Security and Control" then
-    return device:get_manufacturer() == "Nortek Security and Control"
-  elseif device:get_manufacturer() == "CentraLite" then
-    return device:get_manufacturer() == "CentraLite"
-  elseif device:get_manufacturer() == "LUMI" then
-    return device:get_manufacturer() == "LUMI"
+  if device.network_type ~= "DEVICE_EDGE_CHILD" then -- is NO CHILD DEVICE
+    local subdriver = require("samjin")
+    if device:get_manufacturer() == "Samjin" then
+      return true, subdriver
+    elseif device:get_manufacturer() == "Nortek Security and Control" then
+      return true, subdriver
+    elseif device:get_manufacturer() == "CentraLite" then
+      return true, subdriver
+    --elseif device:get_manufacturer() == "LUMI" then
+      --return true, subdriver
+    elseif device:get_manufacturer() == "SmartThings" then
+      return true, subdriver
+    end
+    subdriver = nil
   end
+  return false
 end
 
 local function do_configure(self,device)
@@ -24,6 +31,16 @@ local function do_configure(self,device)
   print ("maxTime y changeRep: ",maxTime, changeRep )
     device:send(device_management.build_bind_request(device, tempMeasurement.ID, self.environment_info.hub_zigbee_eui))
     device:send(tempMeasurement.attributes.MeasuredValue:configure_reporting(device, 30, maxTime, changeRep))
+    local config ={
+      cluster = zcl_clusters.TemperatureMeasurement.ID,
+      attribute = zcl_clusters.TemperatureMeasurement.attributes.MeasuredValue.ID,
+      minimum_interval = 30,
+      maximum_interval = maxTime,
+      data_type = zcl_clusters.TemperatureMeasurement.attributes.MeasuredValue.base_type,
+      reportable_change = changeRep
+    }
+    device:add_configured_attribute(config)
+    device:add_monitored_attribute(config)
     device:configure()
 end
 

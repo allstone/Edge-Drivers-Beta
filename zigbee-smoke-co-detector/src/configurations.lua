@@ -24,7 +24,9 @@ local devices = {
       { mfr = "HEIMAN", model = "SmokeSensor-N-3.0"},
       { mfr = "HEIMAN", model = "SmokeSensor-N"},
       { mfr = "Heiman", model = "SMOK_YDLV10"},
+      { mfr = "Trust", model = "COSensor-EM"},
       { mfr = "_TYZB01_dsjszp0x", model = "TS0205"},
+      { mfr = "_TZ3000_hl7yraue", model = "TS0205"},
     },
     CONFIGURATION = {
       {
@@ -48,7 +50,9 @@ local devices = {
   GAS_DETECTOR = {
     FINGERPRINTS = {
       { mfr = "_TYZB01_mfccmeio", model = "TS0204" },
-      { mfr = "LUMI", model = "lumi.sensor_gas.acn02" },
+      { mfr = "_TYZB01_0w3d5uw", model = "TS0204" },
+      { mfr = "feibit", model = "FNB56-GAS05FB1.4" },
+      { mfr = "LUMI", model = "lumi.sensor_gas.acn02" }
     },
     CONFIGURATION = {
       {

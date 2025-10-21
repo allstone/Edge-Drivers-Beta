@@ -446,6 +446,94 @@ zigbeeManufacturer:
     manufacturer: _TZ3000_8yhypbo7
     model: TS0203
     deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_1bwpjvlz/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_1bwpjvlz
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_rcuyhwe3/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_rcuyhwe3
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_gntwytxo/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_gntwytxo
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "Konke/3AFE280104020015"
+    deviceLabel: Konke Close Sensor
+    manufacturer: Konke
+    model: 3AFE280104020015
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_fku2h3gw/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TZ3000_fku2h3gw
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  #added Aug 2024
+  - id: "_TYZB01_epni2jgy/Close Sensor"
+    deviceLabel: TS0203 Close Sensor
+    manufacturer: _TYZB01_epni2jgy
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_3fqh6agt/Close Sensor"
+    deviceLabel: GIRIER Contact Sensor
+    manufacturer: _TZ3000_3fqh6agt
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_bdoswav6/Close Sensor"
+    deviceLabel: Maxcio Contact Sensor
+    manufacturer: _TZ3000_bdoswav6
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_qld3y9tu/Close Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_qld3y9tu
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_wut53hfm/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_wut53hfm
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_jiocgoks/Contact Sensor"
+    deviceLabel: TS0203 Contact Sensor
+    manufacturer: _TZ3000_jiocgoks
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_c8zfad4a/Contact Sensor"
+    deviceLabel: GIRIER Contact Sensor
+    manufacturer: _TZ3000_c8zfad4a
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+  - id: "SMaBiT/Contact Sensor"
+    deviceLabel: SMaBiT U. Flat Contact Sensor
+    manufacturer: SMaBiT
+    model: AV2010/21C
+    deviceProfileName: contact-battery-profile
+  - id: "eWeLink/SNZB-04P"
+    deviceLabel: eWeLink Open/Closed Sensor
+    manufacturer: eWeLink
+    model: SNZB-04P
+    deviceProfileName: contact-battery-profile
+  - id: "_TZ3000_0hkmcrza/Contact Sensor"
+    deviceLabel: Tuya Contact Sensor
+    manufacturer: _TZ3000_0hkmcrza
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+
+  #Tuya TS0203 generic
+  - id: "TS0203/Contact Sensor"
+    deviceLabel: Tuya Contact Sensor TS0203
+    model: TS0203
+    deviceProfileName: contact-battery-profile
+
+  #Tuya RH3001 generic
+  - id: "RH3001/Contact Sensor"
+    deviceLabel: Tuya Contact Sensor RH3001
+    model: RH3001
+    deviceProfileName: contact-battery-profile
 
   # ST multipurpose sensors
   - id: "Samjin/multi"

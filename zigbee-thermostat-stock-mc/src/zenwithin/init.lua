@@ -180,6 +180,13 @@ local function info_changed(driver, device, event, args)
   local modes_index = tonumber(device.preferences.systemModes)
   local new_supported_modes = SUPPORTED_THERMOSTAT_MODES[modes_index]
   device:emit_event(ThermostatMode.supportedThermostatModes(new_supported_modes, { visibility = { displayed = false } }))
+  
+  -- set battery type and quantity
+  if (device.preferences.batteryType ~= args.old_st_store.preferences.batteryType) and device.preferences.batteryType ~= nil then
+    device:emit_event(capabilities.battery.type(device.preferences.batteryType))
+  elseif (device.preferences.batteryQuantity ~= args.old_st_store.preferences.batteryQuantity) and device.preferences.batteryQuantity ~= nil then
+    device:emit_event(capabilities.battery.quantity(device.preferences.batteryQuantity))
+  end
 end
 
 local zenwithin_thermostat = {
@@ -214,7 +221,11 @@ local zenwithin_thermostat = {
     init = battery_defaults.build_linear_voltage_init(BAT_MIN, BAT_MAX)
   },
   can_handle = function(opts, driver, device, ...)
-    return device:get_manufacturer() == "Zen Within" and device:get_model() == "Zen-01"
+    if device:get_manufacturer() == "Zen Within" and device:get_model() == "Zen-01" then
+      local subdriver = require("zenwithin")
+      return true, subdriver
+    end
+    return false
   end
 }
 

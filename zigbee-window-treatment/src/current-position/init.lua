@@ -1,6 +1,4 @@
 -- Copyright 2022 SmartThings
--- 
--- this module created by M.Colmenarejo
 --
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
@@ -16,14 +14,21 @@
 
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
-local window_shade_defaults = require "st.zigbee.defaults.windowShade_defaults"
+--local window_shade_defaults = require "st.zigbee.defaults.windowShade_defaults"
 local WindowCovering = zcl_clusters.WindowCovering
 
 local SHADE_SET_STATUS = "shade_set_status"
 
 local is_tuya_window_shade = function(opts, driver, device)
-  if device:get_manufacturer() == "_TZ3000_zirycpws" then
-    return true
+  --[[if device:get_manufacturer() == "_TZ3000_zirycpws" or
+  device:get_manufacturer() == "_TZ3000_drk3g2st" or
+  device:get_manufacturer() == "_TZ3000_wptayaqr" or
+  device:get_manufacturer() == "_TZ3000_ctbafvhm" or
+  device:get_manufacturer() == "_TZ3000_e3vhyirx" or
+  device:get_manufacturer() == "_TZ3210_ol1uhvza" then]]
+  if device:get_model() == "TS130F" then
+    local subdriver = require("current-position")
+    return true, subdriver
   end
   return false
 end

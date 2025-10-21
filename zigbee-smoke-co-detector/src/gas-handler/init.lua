@@ -12,22 +12,29 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-local battery_defaults = require "st.zigbee.defaults.battery_defaults"
+--local battery_defaults = require "st.zigbee.defaults.battery_defaults"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local capabilities = require "st.capabilities"
---local battery = capabilities.battery
---local utils = require "st.utils"
 local constants = require "st.zigbee.constants"
+local clusters = require "st.zigbee.zcl.clusters"
+local IASZone = clusters.IASZone
+local device_management = require "st.zigbee.device_management"
+
 -- required module
 local signal = require "signal-metrics"
-local configurationMap = require "configurations"
+--local configurationMap = require "configurations"
 
 
 local is_gas_detector = function(opts, driver, device)
-  if (device:get_manufacturer() == "LUMI" and device:get_model() == "lumi.sensor_gas.acn02") or
-    (device:get_manufacturer() == "_TYZB01_mfccmeio" and device:get_model() == "TS0204") then -- gas detector
-    --or (device:get_manufacturer() == "_TYZB01_18pkine6" and device:get_model() == "TS0204")
-    return true
+  if device.network_type ~= "DEVICE_EDGE_CHILD" then -- is NO CHILD DEVICE
+  if device.preferences.changeProfile == "Gas" then
+    --if (device:get_manufacturer() == "LUMI" and device:get_model() == "lumi.sensor_gas.acn02") or
+      --(device:get_manufacturer() == "feibit" and device:get_model() == "FNB56-GAS05FB1.4") or
+      --(device:get_manufacturer() == "_TYZB01_mfccmeio" and device:get_model() == "TS0204") or
+      --(device:get_manufacturer() == "_TYZB01_0w3d5uw3" and device:get_model() == "TS0204") then -- gas detector
+      local subdriver = require("gas-handler")
+      return true, subdriver
+    end
   end
   return false
 end
@@ -59,21 +66,27 @@ local function ias_zone_status_change_handler(driver, device, zb_rx)
   generate_event_from_zone_status(driver, device, zone_status, zb_rx)
 end
 
-local function added(driver, device)
-  local configuration = configurationMap.get_device_configuration(device)
-    if configuration ~= nil then
-      for _, attribute in ipairs(configuration) do
-        device:add_configured_attribute(attribute)
-        device:add_monitored_attribute(attribute)
-      end
-    end
+--do Configure
+local function do_configure(self, device)
+  print("<< Gas do Configure >>")
+  device:send(device_management.build_bind_request(device, IASZone.ID, self.environment_info.hub_zigbee_eui))
+  device:send(IASZone.attributes.ZoneStatus:configure_reporting(device, 30, 180, 1))
+  device:configure()
+end
+
+--- do_driverSwitched
+local function do_driverSwitched(self, device) --23/12/23
+  print("<<<< Gas DriverSwitched >>>>")
+  device.thread:call_with_delay(3, function(d)
+    do_configure(self, device)
+  end, "configure") 
 end
 
 local gas_detector = {
   NAME = "Gas Detector",
   supported_capabilities = {
-    capabilities.gasDetector,
-    capabilities.battery
+    --capabilities.gasDetector,
+    --capabilities.battery
   },
   zigbee_handlers = {
     cluster = {
@@ -88,7 +101,8 @@ local gas_detector = {
     },
   },
   lifecycle_handlers = {
-    added = added
+    doConfigure = do_configure,
+    driverSwitched = do_driverSwitched
   },
   ias_zone_configuration_method = constants.IAS_ZONE_CONFIGURE_TYPE.AUTO_ENROLL_RESPONSE,
 

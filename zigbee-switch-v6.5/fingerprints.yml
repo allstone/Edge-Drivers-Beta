@@ -570,3 +570,78 @@ zigbeeManufacturer:
     manufacturer: _TZ3000_hafsqare
     model: TS0011
     deviceProfileName: single-switch
+  - id: "_TZ3000_zw7yf6yk/TS0001"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_zw7yf6yk
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "eWeLink/SWITCH-ZR03-1"
+    deviceLabel: eWeLink Switch
+    manufacturer: eWeLink
+    model: SWITCH-ZR03-1
+    deviceProfileName: single-switch
+  - id: "_TZ3000_wijoqjk1/TS0001"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_wijoqjk1
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3000_bmqxalil/TS0001"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_bmqxalil
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3210_cm9mbpr1/Fingerboot"
+    deviceLabel: Hej Fingerbot Plus
+    manufacturer: _TZ3210_cm9mbpr1
+    model: TS0001
+    deviceProfileName: switch-battery
+  - id: "_TZ3000_jrpdaujd/TS0001"
+    deviceLabel: WL-SW01 Switch 30A
+    manufacturer: _TZ3000_jrpdaujd
+    model: TS0001
+    deviceProfileName: single-switch-plug
+  - id: "IKEA/TRETAKT"
+    deviceLabel: IKEA TRETAKT Plug
+    manufacturer: IKEA of Sweden
+    model: TRETAKT Smart plug
+    deviceProfileName: single-switch-plug
+  - id: "_TZ3000_y4che4dc/TS0001"
+    deviceLabel: TS0001 Switch
+    manufacturer: _TZ3000_y4che4dc
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3000_fdxihpp7/TS0001"
+    deviceLabel: TS0001 Plug
+    manufacturer: _TZ3000_fdxihpp7
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "_TZ3218_7fiyo3kv/TS000F"
+    deviceLabel: MHCOZY 16A Switch
+    manufacturer: _TZ3218_7fiyo3kv
+    model: TS000F
+    deviceProfileName: mhcozy-switch
+  - id: "_TZ3000_o1jzcxou/Plug"
+    deviceLabel: BSEED Plug
+    manufacturer: _TZ3000_o1jzcxou
+    model: TS011F
+    deviceProfileName: single-switch-plug
+  - id: "_TZ3000_hdc8bbha/TS000F"
+    deviceLabel: Dry Contact Switch
+    manufacturer: _TZ3000_hdc8bbha
+    model: TS000F
+    deviceProfileName: single-switch
+  - id: "ZBMicro/Switch"
+    deviceLabel: ZBMicro Switch
+    manufacturer: SONOFF
+    model: ZBMicro
+    deviceProfileName: single-switch
+
+  #Tuya switch generic
+  - id: "TS0001/Tuya"
+    deviceLabel: TS0001 Switch
+    model: TS0001
+    deviceProfileName: single-switch
+  - id: "TS0011/Tuya"
+    deviceLabel: TS0011 Switch
+    model: TS0011
+    deviceProfileName: single-switch

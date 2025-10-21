@@ -19,14 +19,17 @@ local windowShadeDefaults = require "st.zigbee.defaults.windowShade_defaults"
 local PowerConfiguration = zcl_clusters.PowerConfiguration
 
 local YOOLAX_WINDOW_SHADE_FINGERPRINTS = {
-    { mfr = "Yookee", model = "D10110" },                                 -- Yookee Window Treatment
-    { mfr = "yooksmart", model = "D10110" }                               -- yooksmart Window Treatment
+    { mfr = "Yookee", model = "D10110" },                 -- Yookee Window Treatment
+    { mfr = "yooksmart", model = "D10110" },              -- yooksmart Window Treatment
+    { mfr = "_TZE200_9caxna4s", model = "TS0301" },        -- Yookee Window Treatment
+    { mfr = "_TZE210_z2tpoj46", model = "TS0301" }        --  motor Window Treatment
 }
 
 local function is_yoolax_window_shade(opts, driver, device)
   for _, fingerprint in ipairs(YOOLAX_WINDOW_SHADE_FINGERPRINTS) do
-    if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-      return true
+    if (device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model) or device:get_model() == "TS0301" then
+      local subdriver = require("yoolax")
+      return true, subdriver
     end
   end
   return false
@@ -34,6 +37,9 @@ end
 
 local function set_shade_level(device, value, command)
   local level = 100 - value
+  if device.preferences.invert == true then
+    level = value
+  end
   device:send_to_component(command.component, WindowCovering.server.commands.GoToLiftPercentage(device, level))
 end
 
@@ -52,11 +58,19 @@ local function set_window_shade_level(level)
 end
 
 local function current_position_attr_handler(driver, device, value, zb_rx)
-  windowShadeDefaults.default_current_lift_percentage_handler(driver, device, {value = 100 - value.value}, zb_rx)
+  local level = 100 - value.value
+  if device.preferences.invertPercentage == true then
+    level = value.value
+  end
+  --windowShadeDefaults.default_current_lift_percentage_handler(driver, device, {value = 100 - value.value}, zb_rx)
+  windowShadeDefaults.default_current_lift_percentage_handler(driver, device, {value = level}, zb_rx)
 end
 
 -- battery percentage
 local function battery_perc_attr_handler(driver, device, value, zb_rx)
+  if device:get_manufacturer() == "_TZE200_9caxna4s" then
+    value.value  = value.value / 2
+  end
   -- this device use battery without / 2
   device:emit_event_for_endpoint(zb_rx.address_header.src_endpoint.value, capabilities.battery.battery(value.value))
 end

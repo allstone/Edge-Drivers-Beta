@@ -14,9 +14,9 @@
 
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
-local window_shade_defaults = require "st.zigbee.defaults.windowShade_defaults"
+--local window_shade_defaults = require "st.zigbee.defaults.windowShade_defaults"
 local cluster_base = require "st.zigbee.cluster_base"
-local utils = require "st.utils"
+--local utils = require "st.utils"
 local data_types = require "st.zigbee.data_types"
 local battery_defaults = require "st.zigbee.defaults.battery_defaults"
 local PowerConfiguration = zcl_clusters.PowerConfiguration
@@ -34,7 +34,8 @@ local PREV_TIME = "shadeLevelCmdTime"
 local is_zigbee_window_shade = function(opts, driver, device)
   for _, fingerprint in ipairs(ZIGBEE_WINDOW_SHADE_FINGERPRINTS) do
       if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-          return true
+        local subdriver = require("rooms-beautiful")
+        return true, subdriver
       end
   end
   return false
@@ -58,6 +59,12 @@ end
 local function info_changed(driver, device, event, args)
   if device.preferences ~= nil and device.preferences.invert ~= args.old_st_store.preferences.invert then
     invert_preference_handler(device)
+  end
+  -- set battery type and quantity
+  if (device.preferences.batteryType ~= args.old_st_store.preferences.batteryType) and device.preferences.batteryType ~= nil then
+    device:emit_event(capabilities.battery.type(device.preferences.batteryType))
+  elseif (device.preferences.batteryQuantity ~= args.old_st_store.preferences.batteryQuantity) and device.preferences.batteryQuantity ~= nil then
+    device:emit_event(capabilities.battery.quantity(device.preferences.batteryQuantity))
   end
 end
 

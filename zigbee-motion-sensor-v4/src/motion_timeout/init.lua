@@ -30,13 +30,17 @@ local ZIGBEE_MOTION_SENSOR_FINGERPRINTS = {
   { mfr = "Konke", model = "3AFE28010402000D", timeout = 30 },
   { mfr = "TCL", model = "MS01", timeout = 30 },
   {mfr = "_TZ3000_fkxmyics", model = "TS0210", timeout = 30 },
+  {mfr = "_TZ3000_lzdjjfss", model = "TS0210", timeout = 30 },
 }
 
 local is_zigbee_motion_sensor = function(opts, driver, device)
-  for _, fingerprint in ipairs(ZIGBEE_MOTION_SENSOR_FINGERPRINTS) do
-      if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-          return true
-      end
+  if device.network_type ~= "DEVICE_EDGE_CHILD" then -- is NO CHILD DEVICE
+    for _, fingerprint in ipairs(ZIGBEE_MOTION_SENSOR_FINGERPRINTS) do
+        if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
+          local subdriver = require("motion_timeout")
+          return true, subdriver
+        end
+    end
   end
   return false
 end

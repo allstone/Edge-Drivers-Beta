@@ -23,7 +23,7 @@
 -- 107 (0x6B): On/off       Bool(1)      On-Off                            0x06 DP NO USADO, SE USA CLUSTER 0006 ATTRIBUTE 0000
 
 local constants = require "st.zigbee.constants"
-local clusters = require "st.zigbee.zcl.clusters"
+--local clusters = require "st.zigbee.zcl.clusters"
 local capabilities = require "st.capabilities"
 local device_management = require "st.zigbee.device_management"
 local messages = require "st.zigbee.messages"
@@ -49,8 +49,6 @@ local up_move
 local time
 local reverse
 
-
---local device_Info = capabilities["legendabsolute60149.deviceInfo"]
 local fingerbot_Mode = capabilities["legendabsolute60149.fingerbotMode"]
 local fingerbot_DownMotion = capabilities["legendabsolute60149.fingerbotDownMotion"]
 local fingerbot_UpMotion = capabilities["legendabsolute60149.fingerbotUpMotion"]
@@ -59,13 +57,15 @@ local fingerbot_Reverse = capabilities["legendabsolute60149.fingerbotReverse"]
 
 local TUYA_FINGERBOT_FINGERPRINTS = {
     { mfr = "_TZ3210_dse8ogfy", model = "TS0001" },
-    { mfr = "_TZ3210_j4pdtz9v", model = "TS0001" }
+    { mfr = "_TZ3210_j4pdtz9v", model = "TS0001" },
+    { mfr = "_TZ3210_cm9mbpr1", model = "TS0001" }
 }
 
 local is_tuya_fingerbot = function(opts, driver, device)
     for _, fingerprint in ipairs(TUYA_FINGERBOT_FINGERPRINTS) do
         if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-            return true
+          local subdriver = require("tuya-fingerbot")
+          return true, subdriver
         end
     end
     return false
@@ -137,8 +137,10 @@ end
 local function tuya_handler_mode(self, device, zb_rx)
   -- DP 101 (0x65) GenericBody byte 7 is Mode (Click(0), Switch(1), Program(2))
   mode = zb_rx.body.zcl_body.body_bytes:byte(7)
-  print("<<< Mode = ", mode)
-  local event = "Click"
+  if device.preferences.logDebugPrint == true then
+    print("<<< Mode = ", mode)
+  end
+    local event = "Click"
   if mode == 1 then event = "Switch" end
   device:emit_event(fingerbot_Mode.fingerBotMode(event))
 end
@@ -152,7 +154,9 @@ local function tuya_handler_down_move(self, device, zb_rx)
   else
     down_move = zb_rx.body.zcl_body.body_bytes:byte(10)
   end
-  print("<<< Down Movement = ", down_move)
+  if device.preferences.logDebugPrint == true then
+    print("<<< Down Movement = ", down_move)
+  end
   device:emit_event(fingerbot_DownMotion.fingerBotDownMotion(down_move))
 
 end
@@ -160,7 +164,9 @@ end
 local function tuya_handler_sutant_time(self, device, zb_rx)
   -- DP 103 (0x67) GenericBody byte 10 is Sustant time (0s to 10s)
   time = zb_rx.body.zcl_body.body_bytes:byte(10)
-  print("<<< Sustant Time = ", time)
+  if device.preferences.logDebugPrint == true then
+    print("<<< Sustant Time = ", time)
+  end
   device:emit_event(fingerbot_SustainTime.fingerBotSustainTime(time))
 end
 
@@ -175,7 +181,9 @@ local function tuya_handler_reverse(self, device, zb_rx)
   end
   local event = "Up-Off"
   if reverse == 1 then event = "Up-On" end
-  print("<<< Reverse = ", reverse)
+  if device.preferences.logDebugPrint == true then
+    print("<<< Reverse = ", reverse)
+  end
   device:emit_event(fingerbot_Reverse.fingerBotReverse(event))
 end
 
@@ -194,7 +202,9 @@ local function tuya_handler_up_move(self, device, zb_rx)
   else
     up_move = zb_rx.body.zcl_body.body_bytes:byte(10)
   end
-  print("<<< Up Movement = ", up_move)
+  if device.preferences.logDebugPrint == true then
+    print("<<< Up Movement = ", up_move)
+  end
   device:emit_event(fingerbot_UpMotion.fingerBotUpMotion(up_move))
 end
 
@@ -219,10 +229,12 @@ local function tuya_handler(self, device, zb_rx)
   local type = zb_rx.body.zcl_body.body_bytes:byte(4)
   local value_len = zb_rx.body.zcl_body.body_bytes:byte(6)
   local body_len = zb_rx.body_length.value
-  print("<<< dp =",dp)
-  print("<<< type =", type)
-  print("<<< dp value len =", value_len)
-  print("<<< body len =", body_len)
+  if device.preferences.logDebugPrint == true then
+    print("<<< dp =",dp)
+    print("<<< type =", type)
+    print("<<< dp value len =", value_len)
+    print("<<< body len =", body_len)
+  end
 
   local dp_handler = dp_table[dp]
   if dp_handler then
@@ -231,21 +243,27 @@ local function tuya_handler(self, device, zb_rx)
 
   if body_len >= 18 and dp == 101  then -- must be dp 102 (65) and dp  102 (66) ZCLCommandId: 0x06 >, GenericBody:  00 02 65 04 00 01 01 66 02 00 04 00 00 00 50 > >
     local dp_2 = zb_rx.body.zcl_body.body_bytes:byte(8)
-    print("<< dp_2 =", dp_2)
+    if device.preferences.logDebugPrint == true then
+      print("<< dp_2 =", dp_2)
+    end
     dp_handler = dp_table[dp_2]
     if dp_handler then
       dp_handler(self, device, zb_rx)
     end
   elseif body_len >= 18 and dp == 103  then -- must be dp 103 (67) and dp 104 (68) ZCLCommandId: 0x06 >, GenericBody:  00 03 67 02 00 04 00 00 00 00 68 04 00 01 01 > >
     local dp_2 = zb_rx.body.zcl_body.body_bytes:byte(11)
-    print("<< dp_2 =", dp_2)
+    if device.preferences.logDebugPrint == true then
+      print("<< dp_2 =", dp_2)
+    end
     dp_handler = dp_table[dp_2]
     if dp_handler then
       dp_handler(self, device, zb_rx)
     end
   elseif body_len >= 18 and dp == 104  then -- must be dp 104 (68) and dp 106 (6A) ZCLCommandId: 0x06 >, GenericBody:  00 31 68 04 00 01 01 6A 02 00 04 00 00 00 1E 6C 01 00 01 00 > >
     local dp_2 = zb_rx.body.zcl_body.body_bytes:byte(8)
-    print("<< dp_2 =", dp_2)
+    if device.preferences.logDebugPrint == true then
+      print("<< dp_2 =", dp_2)
+    end
     dp_handler = dp_table[dp_2]
     if dp_handler then
       dp_handler(self, device, zb_rx)
@@ -257,8 +275,6 @@ end
 --setFingerbotMode_handler
 local function setFingerbotMode_handler(self, device, command)
   --DP 102 (0x65)
-  print("command.args.value >>>>>", command.args.value)
-
   mode = 0
   if command.args.value == "Switch" then
     mode = 1
@@ -270,55 +286,61 @@ local function setFingerbotMode_handler(self, device, command)
   if mode == 1 then
     dp_value = "\x01"
   end
-  print("<< dp_value", dp_value)
+  if device.preferences.logDebugPrint == true then
+    print("command.args.value >>>>>", command.args.value)
+    print("<< dp_value", dp_value)
+  end
   SendCommand(device, "\x65", DP_TYPE_ENUM, dp_value)
 end
 
 --setFingerbotDownMotion_handler
 local function setFingerbotDownMotion_handler(self, device, command)
   --DP 102 (0x66)
-  print("command.args.value >>>>>", command.args.value)
   down_move = command.args.value
   device:emit_event(fingerbot_DownMotion.fingerBotDownMotion(command.args.value))
 
   print("bot Down Move >>>>>>>>>>>>>>>>>")
   local dp_value = utils.serialize_int(down_move, 4, false, false)
-  print("<< dp_value", dp_value)
+  if device.preferences.logDebugPrint == true then
+    print("command.args.value >>>>>", command.args.value)
+    print("<< dp_value", dp_value)
+  end
   SendCommand(device, "\x6A", DP_TYPE_VALUE, dp_value)
 end
 
 --setFingerbotUpMotion_handler
 local function setFingerbotUpMotion_handler(self, device, command)
   --DP 106 (0x6A)
-  print("command.args.value >>>>>", command.args.value)
   up_move = command.args.value
   device:emit_event(fingerbot_UpMotion.fingerBotUpMotion(command.args.value))
 
   print("bot Up Move >>>>>>>>>>>>>>>>>")
   local dp_value = utils.serialize_int(up_move, 4, false, false)
-  print("<< dp_value", dp_value)
+  if device.preferences.logDebugPrint == true then
+    print("command.args.value >>>>>", command.args.value)
+    print("<< dp_value", dp_value)
+  end
   SendCommand(device, "\x6A", DP_TYPE_VALUE, dp_value)
 end
 
 --setFingerbotSustainTime_handler
 local function setFingerbotSustainTime_handler(self, device, command)
   --DP 103 (0x67)
-  print("command.args.value >>>>>", command.args.value)
-
   time = command.args.value
   device:emit_event(fingerbot_SustainTime.fingerBotSustainTime(command.args.value))
 
   print("bot Sustain Time >>>>>>>>>>>>>>>>>")
   local dp_value = utils.serialize_int(time, 4, false, false)
-  print("<< dp_value", dp_value)
+  if device.preferences.logDebugPrint == true then
+    print("command.args.value >>>>>", command.args.value)
+    print("<< dp_value", dp_value)
+  end
   SendCommand(device, "\x67", DP_TYPE_VALUE, dp_value)
 end
 
 -- setFingerbotReverse_handler
 local function setFingerbotReverse_handler(self, device, command)
   --DP 104 (0x68)
-  print("command.args.value >>>>>", command.args.value)
-
   reverse = 0
   if command.args.value == "Up-On" then
     reverse = 1
@@ -330,9 +352,20 @@ local function setFingerbotReverse_handler(self, device, command)
   if reverse == 1 then
     dp_value = "\x01"
   end
-  print("<< dp_value", dp_value)
+  if device.preferences.logDebugPrint == true then
+    print("command.args.value >>>>>", command.args.value)
+    print("<< dp_value", dp_value)
+  end
   SendCommand(device, "\x68", DP_TYPE_ENUM, dp_value)
 end
+
+--- do_driverSwitched
+local function do_driverSwitched(self, device) --23/12/23
+  print("<<<< DriverSwitched >>>>")
+   device.thread:call_with_delay(3, function(d)
+     do_configure(self, device)
+   end, "configure") 
+ end
 
 local tuya_fingerbot = {
   NAME = "tuya fingerbot",
@@ -366,7 +399,8 @@ local tuya_fingerbot = {
   },
   lifecycle_handlers = {
     added = device_added,
-    driverSwitched = do_configure,
+    --driverSwitched = do_configure,
+    driverSwitched = do_driverSwitched,
     doConfigure = do_configure
   },
   can_handle = is_tuya_fingerbot

@@ -1,15 +1,17 @@
 local clusters = require "st.zigbee.zcl.clusters"
 local capabilities = require "st.capabilities"
-local battery_defaults = require "st.zigbee.defaults.battery_defaults"
-local PowerConfiguration = clusters.PowerConfiguration
+--local battery_defaults = require "st.zigbee.defaults.battery_defaults"
+--local PowerConfiguration = clusters.PowerConfiguration
 local ThermostatMode = capabilities.thermostatMode
 local Thermostat = clusters.Thermostat
 
 local ThermostatSystemMode      = Thermostat.attributes.SystemMode
 local ThermostatOperatingState = capabilities.thermostatOperatingState
-local utils             = require "st.utils"
+--local utils             = require "st.utils"
 local device_management = require "st.zigbee.device_management"
 local data_types = require "st.zigbee.data_types"
+local ElectricalMeasurement = clusters.ElectricalMeasurement
+local SimpleMetering = clusters.SimpleMetering
 
 local write = require "writeAttribute"
 
@@ -20,14 +22,16 @@ local THERMOSTAT_MODE_MAP = {
   [ThermostatSystemMode.DRY]               = ThermostatMode.thermostatMode.dryair
 }
 
-local EUROTRONIC_THERMOSTAT_FINGERPRINTS = {
-  { mfr = "NAMRON AS", model = "4512737" }
+local NAMROM_THERMOSTAT_FINGERPRINTS = {
+  { mfr = "NAMRON AS", model = "4512737" }, -- white color
+  { mfr = "NAMRON AS", model = "4512738" } -- black color
 }
 
 local is_namrom_thermostat = function(opts, driver, device)
-  for _, fingerprint in ipairs(EUROTRONIC_THERMOSTAT_FINGERPRINTS) do
+  for _, fingerprint in ipairs(NAMROM_THERMOSTAT_FINGERPRINTS) do
     if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-      return true
+      local subdriver = require("namrom-thermostat")
+      return true, subdriver
     end
   end
   return false
@@ -145,6 +149,17 @@ local function do_configure(self, device)
   device:send(Thermostat.attributes.ControlSequenceOfOperation:configure_reporting(device, 10, 600))
   device:send(Thermostat.attributes.SystemMode:configure_reporting(device, 10, 600))
   device:send(Thermostat.attributes.ThermostatRunningState:configure_reporting(device, 10, 300))
+
+  -- Additional one time configuration
+    -- Divisor and multipler for EnergyMeter
+    device:send(ElectricalMeasurement.attributes.ACPowerDivisor:read(device))
+    device:send(ElectricalMeasurement.attributes.ACPowerMultiplier:read(device))
+    -- Divisor and multipler for PowerMeter
+    device:send(SimpleMetering.attributes.Divisor:read(device))
+    device:send(SimpleMetering.attributes.Multiplier:read(device))
+
+  print("doConfigure performed, transitioning device to PROVISIONED") --23/12/23
+  device:try_update_metadata({ provisioning_state = "PROVISIONED" })
 end
 
 local do_refresh = function(self, device)
@@ -168,7 +183,12 @@ end
 
 local driver_switched = function(self, device)
   do_refresh(self, device)
-  do_configure(self, device)
+  --do_configure(self, device)
+  device.thread:call_with_delay(2, function() 
+    do_configure(self,device)
+    --print("doConfigure performed, transitioning device to PROVISIONED")
+    --device:try_update_metadata({ provisioning_state = "PROVISIONED" })
+  end)
 end
 
 

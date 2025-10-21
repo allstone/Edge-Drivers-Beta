@@ -18,7 +18,6 @@ local capabilities = require "st.capabilities"
 local ZigbeeDriver = require "st.zigbee"
 local defaults = require "st.zigbee.defaults"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
-local OnOff = zcl_clusters.OnOff
 local utils = require "st.utils"
 local Groups = zcl_clusters.Groups
 
@@ -31,25 +30,17 @@ local random_On_Off = capabilities["legendabsolute60149.randomOnOff2"]
 local random_Next_Step = capabilities["legendabsolute60149.randomNextStep2"]
 local energy_Reset = capabilities["legendabsolute60149.energyReset1"]
 local get_Groups = capabilities["legendabsolute60149.getGroups"]
-local signal_Metrics = capabilities["legendabsolute60149.signalMetrics"]
+--local signal_Metrics = capabilities["legendabsolute60149.signalMetrics"]
 
   ---- setEnergyReset_handler
 local function setEnergyReset_handler(self,device,command)
-  print("command.args.value >>>>>", command.args.value)
-  --device:emit_event(energy_Reset.energyReset(command.args.value))
-  if command.args.value == "No Reset" then
-    device:emit_event(energy_Reset.energyReset(device:get_field("date_reset")))
-
-  else
-   print(">>>> RESET Energy <<<<<")
-   --device:set_field("energy_Total", 0, {persist = true})
-   device:emit_event_for_endpoint("main", capabilities.energyMeter.energy({value = 0, unit = "kWh" }))
-   local date_reset = "Last: ".. string.format("%.3f",device:get_field("energy_Total")).." kWh".." ".."("..os.date("%m/%d/%Y")..")"
-   device:set_field("date_reset", date_reset, {persist = true})
-   --device:emit_event(energy_Reset.energyReset(command.args.value))
-   device:emit_event(energy_Reset.energyReset(date_reset))
-   device:set_field("energy_Total", 0, {persist = false})
-  end
+  --print("command.args.value >>>>>", command.args.value)
+  print(">>>> RESET Energy <<<<<")
+  device:emit_event_for_endpoint("main", capabilities.energyMeter.energy({value = 0, unit = "kWh" }))
+  local date_reset = "Last: ".. string.format("%.3f",device:get_field("energy_Total")).." kWh".." ".."("..os.date("%m/%d/%Y",os.time() + device.preferences.localTimeOffset * 3600)..")"
+  device:set_field("date_reset", date_reset, {persist = false})
+  device:emit_event(energy_Reset.energyReset(date_reset))
+  device:set_field("energy_Total", 0, {persist = false})
 end
 ----- resetEnergyMeter_handler
 local function resetEnergyMeter_handler(self, device, command)
@@ -72,7 +63,7 @@ end
   end
   --local text_Groups = "Groups Added: "..group_Names
   local text_Groups = group_Names
-  if text_Groups == "" then text_Groups = "All Deleted" end
+  if text_Groups == "" then text_Groups = "DeleteAllGroups" end
   print (text_Groups)
   device:emit_event(get_Groups.getGroups(text_Groups))
 end
@@ -85,8 +76,9 @@ end
 
 --do_configure
 local function do_configure(self, device)
+  print("<< do Configure function >>")
+   --- _TZ3000_9hpxg80k need special configure in init lifecycle, read attribute on-off every 120 sec and not configure reports
   if device:get_manufacturer() ~= "_TZ3000_9hpxg80k" then
-    --device:configure()
     -- Configure OnOff interval report
     local config ={
       cluster = zcl_clusters.OnOff.ID,
@@ -99,6 +91,7 @@ local function do_configure(self, device)
     device:add_configured_attribute(config)
     device:add_monitored_attribute(config)
     device:configure()
+    --device:remove_monitored_attribute(0x0006, 0x0000)
   end
 end
 
@@ -131,22 +124,31 @@ local function driver_Switched(self,device)
     device:try_update_metadata({profile = "switch-irrigation"})
    end 
   device:refresh()
+
+   --- _TZ3000_9hpxg80k need special configure in init lifecycle, read attribute on-off every 120 sec and not configure reports
   if device:get_manufacturer() ~= "_TZ3000_9hpxg80k" then
-    --device:configure()
     -- Configure OnOff interval report
-    local config ={
-      cluster = zcl_clusters.OnOff.ID,
-      attribute = zcl_clusters.OnOff.attributes.OnOff.ID,
-      minimum_interval = 0,
-      maximum_interval = device.preferences.onOffReports,
-      data_type = zcl_clusters.OnOff.attributes.OnOff.base_type
-    }
-    --device:send(zcl_clusters.OnOff.attributes.OnOff:configure_reporting(device, 0, device.preferences.onOffReports))
-    device:add_configured_attribute(config)
-    device:add_monitored_attribute(config)
-    device:configure()
+    device.thread:call_with_delay(3, function(d) --23/12/23
+      device:configure()
+      print("doConfigure performed, transitioning device to PROVISIONED")
+      device:try_update_metadata({ provisioning_state = "PROVISIONED" })
+    end, "configure")
   end
 end
+
+-- this new function in libraries version 9 allow load only subdrivers with devices paired
+  local function lazy_load_if_possible(sub_driver_name)
+    -- gets the current lua libs api version
+    local version = require "version"
+  
+    --print("<<<<< Library Version:", version.api)
+    -- version 9 will include the lazy loading functions
+    if version.api >= 9 then
+      return ZigbeeDriver.lazy_load_sub_driver(require(sub_driver_name))
+    else
+      return require(sub_driver_name)
+    end
+  end
 
 ---- Driver template config
 local zigbee_switch_driver_template = {
@@ -190,9 +192,14 @@ local zigbee_switch_driver_template = {
     }
   },
  },
- sub_drivers = { require("tuya-fingerbot") }
+ sub_drivers = { 
+  lazy_load_if_possible("tuya-fingerbot"),
+  lazy_load_if_possible("tuya-MHCOZY")
+},
+ --health_check = false
 }
 -- run driver
-defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities)
+defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities, {native_capability_cmds_enabled = true})
+--defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities)
 local zigbee_switch = ZigbeeDriver("Zigbee_Switch_Mc", zigbee_switch_driver_template)
 zigbee_switch:run()

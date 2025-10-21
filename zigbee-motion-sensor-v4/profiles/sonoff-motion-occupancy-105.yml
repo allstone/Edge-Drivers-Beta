@@ -1,0 +1,62 @@
+name: sonoff-motion-occupancy-105
+components:
+- id: main
+  capabilities:
+  - id: motionSensor
+    version: 1
+  - id: occupancySensor
+    version: 1
+  - id: illuminanceMeasurement
+    version: 1
+  - id: legendabsolute60149.signalMetrics
+    version: 1
+  - id: refresh
+    version: 1
+  - id: firmwareUpdate
+    version: 1
+  categories:
+  - name: MotionSensor
+preferences:
+  - name: "version"
+    title: "Version 6.2 (Feb 2024)"
+    description: "Added: sonoff SNZB-06P"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 0
+      default: ""
+  - name: "motionSensitivitySonoff"
+    title: "Select Sensor Sensitivity Level"
+    description: "Select Motion Sensitivity Level (Low, Midium, High). Default : High"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        1 : "Low: Detection distance 2.5m"
+        2 : "Medium: Detection distance 3.5m"
+        3 : "High: Detection distance of 4m"
+      default: 3  
+  - name: "unoccupiedDelaySonoff"
+    title: "Delay to emity Unoccupied event"
+    description: "Select Delay to emit Unoccupied event after Occupied detection (15 sec to 65535 sec). Default : 30"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 15
+      maximum: 65535
+      default: 30
+  - name: "iasZoneReports"
+    title: "Motion Sensor Interval Report"
+    description: "IF YOUR DEVICE & NETWORK WORK FINE THEN DON'T TOUCH. Set Device Interval Report (300 to 3600 sec). Smartthings Default=300. Longer intervals reduce zigbee Network traffic,Hub work and Battery consumption. NEED WAKE UP DEVICE WITH Motion event TO ACCEPT NEW VALUE. Restore default before Driver Change"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 300
+      maximum: 3600
+      default:  300
+metadata:
+  deviceType: MotionSensor
+  ocfDeviceType: x.com.st.d.sensor.motion
+  deviceTypeId: MotionSensor

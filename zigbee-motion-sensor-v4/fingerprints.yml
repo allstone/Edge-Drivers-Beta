@@ -143,7 +143,7 @@ zigbeeManufacturer:
     deviceLabel: TS0210 Motion Sensor
     manufacturer: _TYZB01_3zv6oleo
     model: TS0210
-    deviceProfileName: motion-battery
+    deviceProfileName: motion-battery-sens
   - id: "CentraLite-3305-S-Motion"
     deviceLabel: CentraLite Motion Sensor
     manufacturer: CentraLite
@@ -351,12 +351,12 @@ zigbeeManufacturer:
     deviceProfileName: motion-battery
   # Agosto 2023
   - id: "_TYZB01_vwqnz1sn/Motion"
-    deviceLabel: TS0210 Motion Sensor
+    deviceLabel: TS0202 Motion Sensor
     manufacturer: _TYZB01_vwqnz1sn
     model: TS0202
     deviceProfileName: motion-illuminance
   - id: "LUMI/sensor_motion.aq2"
-    deviceLabel: Aqara Motion Sensor
+    deviceLabel: Aqara Motion Sensor RTCGQ11LM
     manufacturer: LUMI
     model: lumi.sensor_motion.aq2
     deviceProfileName: lumi-motion-illuminance
@@ -410,8 +410,132 @@ zigbeeManufacturer:
     manufacturer: NAMRON AS
     model: 4512771
     deviceProfileName: namron-motion-illuminance-temp-humid
+  - id: "Sunricher/HK-SENSOR-4IN1-A" # same as Namron
+    deviceLabel: Sunricher Multi Sensor 4 in 1
+    manufacturer: Sunricher
+    model: HK-SENSOR-4IN1-A
+    deviceProfileName: namron-motion-illuminance-temp-humid
   - id: "IKEA of Sweden/VALLHORN"
     deviceLabel: Ikea VALLHORN Motion Sensor
     manufacturer: IKEA of Sweden
     model: VALLHORN Wireless Motion Sensor
     deviceProfileName: ikea-motion-illuminance
+  - id: "_TZ3040_wqmtjsyk/TS0202"
+    deviceLabel: TS0202 Motion Sensor
+    manufacturer: _TZ3040_wqmtjsyk
+    model: TS0202
+    deviceProfileName: motion-battery
+  - id: "_TZ3000_jqge2fjx/Vibration"
+    deviceLabel: TS0210 Vibration Sensor
+    manufacturer: _TZ3000_jqge2fjx
+    model: TS0210
+    deviceProfileName: motion-battery-sens
+  - id: "_TZ3000_y56pgpgs/TS0202"
+    deviceLabel: TS0202 Motion Sensor
+    manufacturer: _TZ3000_y56pgpgs
+    model: TS0202
+    deviceProfileName: motion-battery
+  - id: "_TZ3000_lzdjjfss/Vibration"
+    deviceLabel: TS0210 Vibration Sensor
+    manufacturer: _TZ3000_lzdjjfss
+    model: TS0210
+    deviceProfileName: motion-battery-sens
+  - id: "_TZ3000_lqpt3mvr/Vibration"
+    deviceLabel: TS0210 Vibration Sensor
+    manufacturer: _TZ3000_lqpt3mvr
+    model: TS0210
+    deviceProfileName: motion-battery-sens
+  - id: "SONOFF/SNZB-06P"
+    deviceLabel: SONOFF SNZB-06P Sensor
+    manufacturer: SONOFF
+    model: SNZB-06P
+    deviceProfileName: sonoff-motion-occupancy
+  - id: "_TZ3210_cwamkvua/TS0202"
+    deviceLabel: TS0202 Motion Sensor
+    manufacturer: _TZ3210_cwamkvua
+    model: TS0202
+    deviceProfileName: motion-battery
+  - id: "_TZ3210_zmy9hjay/TS0202" #from multisensor driver
+    deviceLabel: Fantem 4 in 1 Multi Sensor
+    manufacturer: _TZ3210_zmy9hjay
+    model: TS0202
+    deviceProfileName: motion-temp-humidity-illumin-battery
+  - id: "_TZ3210_wuhzzfqg/TS0202" #from multisensor driver
+    deviceLabel: Fantem 4 in 1 Multi Sensor
+    manufacturer: _TZ3210_wuhzzfqg
+    model: TS0202
+    deviceProfileName: motion-temp-humidity-illumin-battery
+  - id: "_TZE200_kb5noeto/TS0601"
+    deviceLabel: ZG-204ZM Motion Sensor
+    manufacturer: _TZE200_kb5noeto
+    model: TS0601
+    deviceProfileName: motion-illuminance
+  - id: "TUYATEC-deetibst/Motion"
+    deviceLabel: TUYATEC Motion Sensor
+    manufacturer: TUYATEC-deetibst
+    model: RH3040
+    deviceProfileName: motion-battery
+  #Agosto 2024
+  - id: "TTUYATEC-kmfarmcu/Motion"
+    deviceLabel: RH3040 Motion Sensor
+    manufacturer: TUYATEC-kmfarmcu
+    model: RH3040
+    deviceProfileName: motion-battery
+  - id: "Schneider Electric/CCT595011_AS"
+    deviceLabel: Schneider CCT595011_AS Motion Sensor
+    manufacturer: Schneider Electric
+    model: CCT595011_AS
+    deviceProfileName: motion-illuminance
+  - id: "eWeLink/SNZB-03P"
+    deviceLabel: Sonoff SNZB-03P Motion Sensor
+    manufacturer: eWeLink
+    model: SNZB-03P
+    deviceProfileName: motion-illuminance
+  - id: "_TZE200_bh3n6gk8/TS0601"
+    deviceLabel: Tuya ZG-204Z Motion Sensor
+    manufacturer: _TZE200_bh3n6gk8
+    model: TS0601
+    deviceProfileName: motion-battery-ef00
+  - id: "aqara/lumi.sensor_occupy.agl1"
+    deviceLabel: aqara FP1E Presence Sensor
+    manufacturer: aqara
+    model: lumi.sensor_occupy.agl1
+    deviceProfileName: aqara-fp1e
+  - id: "Visonic/GB-540"
+    deviceLabel: Visonic Glass break detector
+    manufacturer: Visonic
+    model: GB-540
+    deviceProfileName: motion-battery
+  - id: "_TZ3000_k5wwrk7a/TS0202"
+    deviceLabel: TS0202 Motion Sensor
+    manufacturer: _TZ3000_k5wwrk7a
+    model: TS0202
+    deviceProfileName: motion-battery
+  - id: "_TZE200_iba1ckek/TS0601"
+    deviceLabel: Tuya ZG-103Z Vibration Sensor
+    manufacturer: _TZE200_iba1ckek
+    model: TS0601
+    deviceProfileName: motion-battery-sens-2
+  - id: "_TZ3000_c8ozah8n/TS0202"
+    deviceLabel: TS0202 Motion Sensor
+    manufacturer: _TZ3000_c8ozah8n
+    model: TS0202
+    deviceProfileName: motion-battery
+  
+  #Tuya TS0202 generic
+  - id: "TS0202/Motion Sensor"
+    deviceLabel: TS0202 Motion Sensor
+    model: TS0202
+    deviceProfileName: motion-battery
+
+  #Tuya RH3040 generic
+  - id: "RH3040/Motion Sensor"
+    deviceLabel: RH3040 Motion Sensor
+    model: RH3040
+    deviceProfileName: motion-battery
+
+  #Tuya TS0210 generic
+  - id: "TS0210/Vibration Sensor"
+    deviceLabel: TS0210 Vibration Sensor
+    model: TS0210
+    deviceProfileName: motion-battery-sens

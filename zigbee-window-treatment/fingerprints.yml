@@ -26,11 +26,11 @@ zigbeeManufacturer:
     manufacturer: LUMI
     model: lumi.curtain.v1
     deviceProfileName: window-treatment-aqara
-  - id: "LUMI/lumi.curtain.acn002"
-    deviceLabel: Aqara Curtain Controller
-    manufacturer: LUMI
-    model: lumi.curtain.acn002
-    deviceProfileName: window-treatment-aqara
+  #- id: "LUMI/lumi.curtain.acn002"
+  #  deviceLabel: Aqara Curtain Controller
+  #  manufacturer: LUMI
+  #  model: lumi.curtain.acn002
+  #  deviceProfileName: window-treatment-aqara #no funciona y falta depuracion
   - id: "REXENSE/KG0001"
     deviceLabel: Window Treatment
     manufacturer: REXENSE
@@ -84,12 +84,12 @@ zigbeeManufacturer:
     deviceLabel: Yookee Window Treatment
     manufacturer: Yookee
     model: D10110
-    deviceProfileName: window-treatment-battery
+    deviceProfileName: window-treatment-battery-invert
   - id: "yooksmart/D10110"
     deviceLabel: yooksmart Window Treatment
     manufacturer: yooksmart
     model: D10110
-    deviceProfileName: window-treatment-battery
+    deviceProfileName: window-treatment-battery-invert
   - id: "Rooms Beautiful/C001"
     deviceLabel: Rooms Beautiful Window Treatment
     manufacturer: Rooms Beautiful
@@ -161,13 +161,96 @@ zigbeeManufacturer:
     manufacturer: _TZ3000_dbpmpco1
     model: TS130F
     deviceProfileName: window-treatment-profile-calib
+  - id: "_TZE204_fzbskaga/TS0601"  #copy from stock driver aug 2023
+    deviceLabel: Hanssem Window Treatment
+    manufacturer: _TZE204_fzbskaga
+    model: TS0601
+    deviceProfileName: window-treatment-hanssem
+  # august 2023
+  - id: "TS0302/_TYZB01_dazsid15"
+    deviceLabel: TS0302 Window Treatment
+    manufacturer: _TYZB01_dazsid15
+    model: TS0302
+    deviceProfileName: window-treatment-profile-invert
+  - id: "SOMFY/Sonesse 28 WF Li-Ion Roller"
+    deviceLabel: SOMFY Window Treatment
+    manufacturer: SOMFY
+    model: Sonesse 28 WF Li-Ion Roller
+    deviceProfileName: window-treatment-battery
+  - id: "Products Corp/E-Wand"
+    deviceLabel: E-Wand Window Treatment
+    manufacturer: Current Products Corp
+    model: E-Wand
+    deviceProfileName: window-treatment-battery
+  - id: "_TZE200_9caxna4s/TS0301"
+    deviceLabel: yoolax Window Treatment
+    manufacturer: _TZE200_9caxna4s
+    model: TS0301
+    deviceProfileName: window-treatment-battery-invert
+  - id: "_TZE210_z2tpoj46/TS0301" #added 1-agosto-2025
+    deviceLabel: yoolax Window Treatment
+    manufacturer: _TZE210_z2tpoj46
+    model: TS0301
+    deviceProfileName: window-treatment-battery-invert
+  - id: "TS130F/_TZ3000_drk3g2st"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_drk3g2st
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_eg7awg6a"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_eg7awg6a
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3210_ol1uhvza"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3210_ol1uhvza
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_wptayaqr"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_wptayaqr
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  #Agosto 2024
+  - id: "TS130F/_TZ3000_ctbafvhm"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_ctbafvhm
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  # this device has invisible character in manufacturer and model
+  - id: "Legrand/K 4027C"
+    deviceLabel: BTICINO LIVING NOW K 4027C
+    manufacturer: Legrand
+    model: Shutter SW with level control
+    deviceProfileName: window-treatment-profile-generic
+  - id: "TS130F/_TZ3000_e3vhyirx"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_e3vhyirx
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  
+  #Tuya Window Treatment generic
+  - id: "TS130F/window-treatment"
+    deviceLabel: TS130F Window Treatment
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS0302/window-treatment"
+    deviceLabel: TS0302 Window Treatment
+    model: TS0302
+    deviceProfileName: window-treatment-profile-invert
+  - id: "TS0301/window-treatment"
+    deviceLabel: TS0301 Window Treatment
+    model: TS0301
+    deviceProfileName: window-treatment-battery-invert
+
 zigbeeGeneric:
   - id: "genericShade"
     deviceLabel: Zigbee Window Treatment
     clusters:
       server:
         - 0x0102 #Window Covering
-    deviceProfileName: window-treatment-profile
+    deviceProfileName: window-treatment-profile-generic
   - id: "genericShade-battery"
     deviceLabel: Zigbee Window Treatment
     clusters:

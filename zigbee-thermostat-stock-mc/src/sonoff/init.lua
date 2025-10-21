@@ -1,6 +1,6 @@
 local clusters = require "st.zigbee.zcl.clusters"
 local capabilities = require "st.capabilities"
-local battery_defaults = require "st.zigbee.defaults.battery_defaults"
+--local battery_defaults = require "st.zigbee.defaults.battery_defaults"
 local PowerConfiguration = clusters.PowerConfiguration
 local ThermostatMode = capabilities.thermostatMode
 local Thermostat = clusters.Thermostat
@@ -23,32 +23,11 @@ local SONOFF_THERMOSTAT_FINGERPRINTS = {
 local is_sonoff_thermostat = function(opts, driver, device)
   for _, fingerprint in ipairs(SONOFF_THERMOSTAT_FINGERPRINTS) do
     if device:get_manufacturer() == fingerprint.mfr and device:get_model() == fingerprint.model then
-      return true
+      local subdriver = require("sonoff")
+      return true, subdriver
     end
   end
   return false
-end
-
---- Update preferences after infoChanged recived ---
-local function do_preferences (driver, device)
-  for id, value in pairs(device.preferences) do
-    local oldPreferenceValue = device:get_field(id)
-    local newParameterValue = device.preferences[id]
-    if oldPreferenceValue ~= newParameterValue then
-      device:set_field(id, newParameterValue, {persist = true})
-      --if device.preferences.logDebugPrint == true then
-        print("<< Preference changed name:",id,"oldPreferenceValue:",oldPreferenceValue, "newParameterValue: >>", newParameterValue)
-      --end
-      ------ Change profile 
-      if id == "changeProfileSonoff" then
-       if newParameterValue == "Multi" then
-        device:try_update_metadata({profile = "thermostat-sonoff-multi"})
-       elseif newParameterValue == "Single" then
-        device:try_update_metadata({profile = "thermostat-sonoff"})
-       end
-      end
-    end
-  end
 end
 
 local thermostat_mode_handler = function(driver, device, thermostat_mode)
@@ -87,18 +66,31 @@ local function do_init(driver,device)
   elseif device.preferences.changeProfileSonoff == "Multi" then
     device:try_update_metadata({profile = "thermostat-sonoff-multi"})
   end
+
+  -- set battery type and quantity
+  local cap_status = device:get_latest_state("main", capabilities.battery.ID, capabilities.battery.type.NAME)
+  if cap_status == nil and device.preferences.batteryType ~= nil then
+    device:emit_event(capabilities.battery.type(device.preferences.batteryType))
+  end
+
+  cap_status = device:get_latest_state("main", capabilities.battery.ID, capabilities.battery.quantity.NAME)
+  if cap_status == nil and device.preferences.batteryQuantity ~= nil then
+    device:emit_event(capabilities.battery.quantity(device.preferences.batteryQuantity))
+  end
 end
 
 local function do_configure(self, device)
   device:send(device_management.build_bind_request(device, Thermostat.ID, self.environment_info.hub_zigbee_eui))
-  device:send(Thermostat.attributes.LocalTemperature:configure_reporting(device, 10, 60, 50))
+  device:send(Thermostat.attributes.LocalTemperature:configure_reporting(device, 30, 300, 50))
   device:send(Thermostat.attributes.OccupiedHeatingSetpoint:configure_reporting(device, 1, 600, 50))
   device:send(Thermostat.attributes.SystemMode:configure_reporting(device, 1, 0, 1))
-  device:send(Thermostat.attributes.ThermostatRunningState:configure_reporting(device, 10, 300))
+  device:send(Thermostat.attributes.ThermostatRunningState:configure_reporting(device, 30, 300))
   device:send(device_management.build_bind_request(device, PowerConfiguration.ID, self.environment_info.hub_zigbee_eui))
   device:send(PowerConfiguration.attributes.BatteryPercentageRemaining:configure_reporting(device, 30, 21600, 1))
   --device:send(PowerConfiguration.attributes.BatteryVoltage:configure_reporting(device, 30, 21600, 1))
 
+  print("doConfigure performed, transitioning device to PROVISIONED") --23/12/23
+  device:try_update_metadata({ provisioning_state = "PROVISIONED" })
 end
 
 local do_refresh = function(self, device)
@@ -121,7 +113,12 @@ end
 
 local driver_switched = function(self, device)
   do_refresh(self, device)
-  do_configure(self, device)
+  --do_configure(self, device)
+  device.thread:call_with_delay(2, function() 
+    do_configure(self,device)
+    --print("doConfigure performed, transitioning device to PROVISIONED")
+    --device:try_update_metadata({ provisioning_state = "PROVISIONED" })
+  end)
 end
 
 -- battery_percentage_handler
@@ -157,8 +154,7 @@ local sonoff_thermostat = {
     init = do_init,
     driverSwitched = driver_switched,
     doConfigure = do_configure,
-    added = device_added,
-    infoChanged = do_preferences,
+    added = device_added
   },
   can_handle = is_sonoff_thermostat
 }
